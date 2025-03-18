@@ -10,7 +10,8 @@ def test_decorator():
     open_page()
     search_for_repository("eroshenkoam/allure-example")
     go_to_repository("eroshenkoam/allure-example")
-    search_for_text("eroshenkoam")
+    open_issue_tab()
+    should_see_issue_with_number("95")
 
 
 @allure.step('Открываем главную страницу')
@@ -27,11 +28,17 @@ def search_for_repository(repo):
     s("#query-builder-test").submit()
 
 
-@allure.step('Открываем нужный репозиторий')
+@allure.step('Открываем нужный репозиторий {repo}')
 def go_to_repository(repo):
     s(by.link_text(repo)).click()
 
 
-@allure.step('Ищем нужный текст {text}')
-def search_for_text(text):
-    s(".Box-sc-g0xbh4-0.kJvqaq.prc-Link-Link-85e08").should(have.text(text))
+
+@allure.step("Открываем таб Issues")
+def open_issue_tab():
+    s("#issues-tab").click()
+
+
+@allure.step("Проверка наличия Issue с номером {number}")
+def should_see_issue_with_number(number):
+    s("[data-testid='list-row-repo-name-and-number']").should(have.text(number))

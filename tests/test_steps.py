@@ -24,11 +24,8 @@ def test_steps_github():
     with allure.step('Открываем нужный репозиторий'):
         s(by.link_text("eroshenkoam/allure-example")).click()
 
-    with allure.step('Ищем текст на странице репозитория eroshenkoam'):
-        s(".Box-sc-g0xbh4-0.kJvqaq.prc-Link-Link-85e08").should(have.text('eroshenkoam'))
+    with allure.step('Открываем таб issues'):
+        s("#issues-tab").click()
 
-    # s("#issues-tab").click()
-    #
-    # s("[data-testid='list-row-repo-name-and-number']").should(have.text('95'))
-
-    # s(by.partial_text("#76")).should(be.visible)
+    with allure.step('Проверка наличия таб с номером 95'):
+        s("[data-testid='list-row-repo-name-and-number']").should(have.text('95'))
